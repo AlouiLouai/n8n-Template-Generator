@@ -35,7 +35,7 @@ export default function N8nPromptGenerator() {
           <GeneratedTemplate template={generatedTemplate} onClear={handleClear} />
         ) : (
           <>
-            <GeneratorForm onTemplateGenerated={handleTemplateGenerated} />
+            <GeneratorForm onTemplateGenerated={handleTemplateGenerated} prompt={prompt} setPrompt={setPrompt} />
             <ExamplePrompts setPrompt={setPrompt} />
             <Features />
           </>

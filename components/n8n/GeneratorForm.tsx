@@ -10,11 +10,10 @@ import { Zap, ArrowRight, Loader } from "lucide-react"
 import { useToast } from "../ui/use-toast"
 import LoadingIndicator from "./LoadingIndicator"
 
-export function GeneratorForm({ onTemplateGenerated }: { onTemplateGenerated: (template: object) => void }) {
+export function GeneratorForm({ onTemplateGenerated, prompt, setPrompt }: { onTemplateGenerated: (template: object) => void, prompt: string, setPrompt: (prompt: string) => void }) {
   const [isGenerating, setIsGenerating] = useState(false)
   const { toast } = useToast()
   const formRef = useRef<HTMLFormElement>(null)
-  const [prompt, setPrompt] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -34,6 +33,7 @@ export function GeneratorForm({ onTemplateGenerated }: { onTemplateGenerated: (t
         description: "Your n8n template has been successfully generated.",
       })
       onTemplateGenerated(result.success)
+      setPrompt("") // Clear prompt after successful generation
     } else if (result.error) {
       toast({
         title: "Error",
