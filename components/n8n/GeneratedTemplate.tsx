@@ -59,12 +59,12 @@ export function GeneratedTemplate({ template, onClear }: GeneratedTemplateProps)
   }
 
   return (
-    <Card className="mb-12 shadow-xl border-2 border-gray-100 w-full max-w-4xl mx-auto">
+    <Card className="mb-12 shadow-xl border-2 border-gray-100 dark:border-gray-800 dark:bg-gray-950 w-full max-w-4xl mx-auto">
       <CardContent className="p-6">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-bold text-gray-800">Generated Workflow</h3>
+          <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200">Generated Workflow</h3>
           <div className="flex items-center gap-2">
-            <Button size="sm" onClick={handleCopy} variant="outline" className="text-primary border-primary/50 hover:bg-primary/10 hover:text-primary">
+            <Button size="sm" onClick={handleCopy} variant="outline" className="text-primary border-primary/50 hover:bg-primary/10 hover:text-primary dark:text-primary-foreground dark:border-primary/70 dark:hover:bg-primary/20">
               {copied ? <Check className="w-4 h-4 mr-1.5" /> : <Copy className="w-4 h-4 mr-1.5" />}
               {copied ? "Copied" : "Copy"}
             </Button>
@@ -74,11 +74,11 @@ export function GeneratedTemplate({ template, onClear }: GeneratedTemplateProps)
             </Button>
           </div>
         </div>
-        <div className="relative rounded-lg bg-gray-900 text-white p-4 font-mono text-sm overflow-auto">
+        <div className="relative rounded-lg bg-stone-900 text-white p-4 font-mono text-sm overflow-auto">
           <pre className="overflow-x-auto"><code>{displayedLines}</code></pre>
           {templateLines.length > linesToShow && (
             <div
-              className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-900 to-transparent cursor-pointer flex justify-center items-end pb-3"
+              className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-stone-900 to-transparent cursor-pointer flex justify-center items-end pb-3"
               onMouseEnter={() => setLinesToShow(linesToShow + INCREMENT_LINES)}
             >
               <ChevronsDown className="w-6 h-6 text-primary animate-bounce" />

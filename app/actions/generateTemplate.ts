@@ -37,11 +37,18 @@ export async function generateTemplate(prevState: any, formData: FormData) {
       return { error: `Failed to generate template: ${errorMessage}`, success: null };
     }
 
-    const result = await response.json();
-    return { success: result, error: null };
+    const n8nResponse = await response.json();
+
+    // Check for error messages within the n8n response payload
+    if (n8nResponse && (n8nResponse.error || n8nResponse.success === false)) {
+      const errorMessage = n8nResponse.error || n8nResponse.message || 'n8n workflow failed to generate template.';
+      return { error: `Workflow generation failed: ${errorMessage}`, success: null };
+    }
+
+    return { success: n8nResponse, error: null };
   } catch (error: any) {
     console.error('Error generating template:', error);
-    return { error: 'Failed to generate template. Please try again later.', success: null };
+    return { error: 'Failed to connect to n8n service. Please check your N8N_WEBHOOK_URL and try again.', success: null };
   }
 }
 

@@ -45,31 +45,31 @@ export function GeneratorForm({ onTemplateGenerated }: { onTemplateGenerated: (t
 
   if (isGenerating) {
     return (
-      <div className="flex flex-col items-center justify-center h-64">
+      <div className="flex flex-col items-center justify-center h-64 dark:bg-gray-900">
         <LoadingIndicator />
-        <p className="mt-4 text-lg text-gray-600">Generating your workflow...</p>
+        <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">Generating your workflow...</p>
       </div>
     )
   }
 
   return (
-    <Card className="mb-12 shadow-xl border-2 border-gray-100">
+    <Card className="mb-12 shadow-xl border-2 border-gray-100 dark:border-gray-800 dark:bg-gray-950">
       <CardContent className="p-8">
         <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="prompt" className="block text-lg font-semibold text-gray-800 mb-3">
+            <label htmlFor="prompt" className="block text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
               What workflow do you want to automate?
             </label>
             <Textarea
               id="prompt"
               name="prompt"
               placeholder="e.g., When a new row is added to my Google Sheet, send a custom email through Gmail and then post a message to a Slack channel..."
-              className="min-h-[140px] text-base p-4 border-gray-300 focus:border-primary focus:ring-primary/50 shadow-sm"
+              className="min-h-[140px] text-base p-4 border-gray-300 focus:border-primary focus:ring-primary/50 shadow-sm dark:bg-gray-800 dark:text-gray-50 dark:border-gray-700"
               required
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
             />
-            <p className="text-sm text-gray-500 mt-3">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-3">
               Be as specific as possible. Include the apps you want to connect and the actions you want to perform.
             </p>
           </div>
