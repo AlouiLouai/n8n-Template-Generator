@@ -9,7 +9,13 @@ export async function generateTemplate(prevState: any, formData: FormData) {
   }
 
   try {
-    const response = await fetch('https://n8n.connectorzzz.com/webhook-test/generate-template', {
+    const webhookUrl = process.env.N8N_WEBHOOK_URL;
+
+    if (!webhookUrl) {
+      throw new Error("N8N_WEBHOOK_URL is not defined in the environment variables.");
+    }
+
+    const response = await fetch(webhookUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

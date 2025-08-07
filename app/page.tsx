@@ -9,7 +9,9 @@ import { ExamplePrompts } from "@/components/n8n/ExamplePrompts"
 import { Features } from "@/components/n8n/Features"
 import { Hero } from "@/components/n8n/Hero"
 
-import { GeneratedTemplate } from "@/components/n8n/GeneratedTemplate"
+import dynamic from 'next/dynamic';
+
+const GeneratedTemplate = dynamic(() => import("@/components/n8n/GeneratedTemplate").then(mod => mod.GeneratedTemplate), { ssr: false });
 
 export default function N8nPromptGenerator() {
   const [generatedTemplate, setGeneratedTemplate] = useState<object | null>(null)
