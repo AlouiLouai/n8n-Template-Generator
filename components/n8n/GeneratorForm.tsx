@@ -8,9 +8,12 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Zap, ArrowRight } from "lucide-react"
 import { useToast } from "../ui/use-toast"
+import LoadingIndicator from "./LoadingIndicator"
+import { GeneratedTemplate } from "./GeneratedTemplate"
 
-export function GeneratorForm() {
+export function GeneratorForm({ onTemplateGenerated }: { onTemplateGenerated: (template: object) => void }) {
   const [isGenerating, setIsGenerating] = useState(false)
+  const [generatedTemplate, setGeneratedTemplate] = useState<object | null>(null)
   const { toast } = useToast()
   const formRef = useRef<HTMLFormElement>(null)
   const [prompt, setPrompt] = useState("")
@@ -20,8 +23,9 @@ export function GeneratorForm() {
     if (!prompt.trim()) return
 
     setIsGenerating(true)
-    const formData = new FormData();
-    formData.append('prompt', prompt);
+    setGeneratedTemplate(null)
+    const formData = new FormData()
+    formData.append("prompt", prompt)
 
     const result = await generateTemplate(null, formData)
 
@@ -32,7 +36,7 @@ export function GeneratorForm() {
         title: "Template Generated!",
         description: "Your n8n template has been successfully generated.",
       })
-      formRef.current?.reset()
+      onTemplateGenerated(result.success)
     } else if (result.error) {
       toast({
         title: "Error",
@@ -40,6 +44,24 @@ export function GeneratorForm() {
         variant: "destructive",
       })
     }
+  }
+
+  const handleClear = () => {
+    setGeneratedTemplate(null)
+    setPrompt("")
+  }
+
+  if (isGenerating) {
+    return (
+      <div className="flex flex-col items-center justify-center h-64">
+        <LoadingIndicator />
+        <p className="mt-4 text-lg text-gray-600">Generating your workflow...</p>
+      </div>
+    )
+  }
+
+  if (generatedTemplate) {
+    return <GeneratedTemplate template={generatedTemplate} onClear={handleClear} />
   }
 
   return (
@@ -74,7 +96,7 @@ export function GeneratorForm() {
           </div>
           <Button
             type="submit"
-            disabled={isGenerating}
+            disabled={!prompt.trim() || isGenerating}
             className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-medium py-3 text-lg"
           >
             {isGenerating ? (

@@ -1,10 +1,11 @@
+
 'use server'
 
 export async function generateTemplate(prevState: any, formData: FormData) {
   const prompt = formData.get('prompt') as string;
 
   if (!prompt || !prompt.trim()) {
-    return { error: 'Prompt is required.', success: false, data: null };
+    return { error: 'Prompt is required.', success: null };
   }
 
   try {
@@ -19,13 +20,22 @@ export async function generateTemplate(prevState: any, formData: FormData) {
     if (!response.ok) {
       const errorBody = await response.text();
       console.error(`HTTP error! status: ${response.status}`, errorBody);
-      throw new Error(`HTTP error! status: ${response.status}`);
+      // Try to parse errorBody as JSON, if it fails, use the raw text.
+      let errorMessage = errorBody;
+      try {
+        const errorJson = JSON.parse(errorBody);
+        errorMessage = errorJson.message || errorBody;
+      } catch (e) {
+        // Not a JSON error, use the raw text
+      }
+      return { error: `Failed to generate template: ${errorMessage}`, success: null };
     }
 
     const result = await response.json();
-    return { success: true, data: result, error: null };
-  } catch (error) {
+    return { success: result, error: null };
+  } catch (error: any) {
     console.error('Error generating template:', error);
-    return { error: 'Failed to generate template. Please try again later.', success: false, data: null };
+    return { error: 'Failed to generate template. Please try again later.', success: null };
   }
 }
+
