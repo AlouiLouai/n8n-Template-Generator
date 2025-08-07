@@ -5,6 +5,10 @@
 
 An AI-powered application that transforms natural language descriptions into ready-to-use n8n workflow templates. Describe your automation idea in plain English, and get a functional n8n JSON template in seconds.
 
+## 🌐 Live Demo
+
+Experience the n8n Template Generator in action: [https://n8n-template-generator.vercel.app/](https://n8n-template-generator.vercel.app/)
+
 ## ✨ Features
 
 - **AI-Powered Generation:** Leverages generative AI to understand your workflow description and create the corresponding n8n template.

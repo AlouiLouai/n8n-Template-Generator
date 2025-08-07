@@ -5,9 +5,12 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'n8n Template Generator',
-  description: 'Created with v0',
+  description: 'Created By louAI',
   generator: 'v0.dev',
-}
+  icons: {
+    icon: '/placeholder-logo.svg',
+  },
+};
 
 import { ThemeProvider } from "@/components/theme-provider"
 
