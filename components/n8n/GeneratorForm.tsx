@@ -5,15 +5,13 @@ import { useState, useRef } from "react"
 import { generateTemplate } from "@/app/actions/generateTemplate"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Zap, ArrowRight } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
+import { Zap, ArrowRight, Loader } from "lucide-react"
 import { useToast } from "../ui/use-toast"
 import LoadingIndicator from "./LoadingIndicator"
-import { GeneratedTemplate } from "./GeneratedTemplate"
 
 export function GeneratorForm({ onTemplateGenerated }: { onTemplateGenerated: (template: object) => void }) {
   const [isGenerating, setIsGenerating] = useState(false)
-  const [generatedTemplate, setGeneratedTemplate] = useState<object | null>(null)
   const { toast } = useToast()
   const formRef = useRef<HTMLFormElement>(null)
   const [prompt, setPrompt] = useState("")
@@ -23,7 +21,6 @@ export function GeneratorForm({ onTemplateGenerated }: { onTemplateGenerated: (t
     if (!prompt.trim()) return
 
     setIsGenerating(true)
-    setGeneratedTemplate(null)
     const formData = new FormData()
     formData.append("prompt", prompt)
 
@@ -46,11 +43,6 @@ export function GeneratorForm({ onTemplateGenerated }: { onTemplateGenerated: (t
     }
   }
 
-  const handleClear = () => {
-    setGeneratedTemplate(null)
-    setPrompt("")
-  }
-
   if (isGenerating) {
     return (
       <div className="flex flex-col items-center justify-center h-64">
@@ -60,54 +52,42 @@ export function GeneratorForm({ onTemplateGenerated }: { onTemplateGenerated: (t
     )
   }
 
-  if (generatedTemplate) {
-    return <GeneratedTemplate template={generatedTemplate} onClear={handleClear} />
-  }
-
   return (
-    <Card className="mb-8 border-orange-200 shadow-lg">
-      <CardHeader className="bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-t-lg">
-        <CardTitle className="flex items-center gap-2">
-          <Zap className="w-5 h-5" />
-          Workflow Prompt Generator
-        </CardTitle>
-        <CardDescription className="text-purple-100">
-          Describe your automation workflow in plain English
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="p-6">
+    <Card className="mb-12 shadow-xl border-2 border-gray-100">
+      <CardContent className="p-8">
         <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="prompt" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="prompt" className="block text-lg font-semibold text-gray-800 mb-3">
               What workflow do you want to automate?
             </label>
             <Textarea
               id="prompt"
               name="prompt"
-              placeholder="Example: I want to automatically create a Notion page whenever someone fills out a contact form on my website, and then send a welcome email to the person..."
-              className="min-h-[120px] border-orange-200 focus:border-orange-500 focus:ring-orange-500"
+              placeholder="e.g., When a new row is added to my Google Sheet, send a custom email through Gmail and then post a message to a Slack channel..."
+              className="min-h-[140px] text-base p-4 border-gray-300 focus:border-primary focus:ring-primary/50 shadow-sm"
               required
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
             />
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-sm text-gray-500 mt-3">
               Be as specific as possible. Include the apps you want to connect and the actions you want to perform.
             </p>
           </div>
           <Button
             type="submit"
             disabled={!prompt.trim() || isGenerating}
-            className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-medium py-3 text-lg"
+            className="w-full bg-gradient-to-r from-primary to-red-500 hover:from-primary/90 hover:to-red-500/90 text-white font-bold py-4 text-lg shadow-lg transition-transform transform hover:scale-105"
           >
             {isGenerating ? (
               <>
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                <Loader className="w-6 h-6 animate-spin mr-3" />
                 Generating Template...
               </>
             ) : (
               <>
+                <Zap className="w-6 h-6 mr-3" />
                 Generate n8n Template
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <ArrowRight className="w-6 h-6 ml-auto" />
               </>
             )}
           </Button>

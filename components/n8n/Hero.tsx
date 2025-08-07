@@ -3,21 +3,20 @@ import { Sparkles } from "lucide-react";
 
 export function Hero() {
   return (
-    <div className="text-center mb-12">
-      <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+    <div className="text-center py-16">
+      <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
         <Sparkles className="w-4 h-4" />
-        Powered by AI
+        Powered by Generative AI
       </div>
-      <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-        Describe your workflow,
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-500">
-          {" "}
-          get n8n templates
+      <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
+        Describe Your Workflow,
+        <br />
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-red-500">
+          Get Instant n8n Templates
         </span>
-      </h2>
-      <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-        Transform your automation ideas into ready-to-use n8n workflows. Just describe what you want to automate,
-        and we&apos;ll generate the perfect template for you.
+      </h1>
+      <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+        Transform your automation ideas into ready-to-use n8n workflows. Just describe what you want to automate in plain English, and we&apos;ll generate the perfect template for you.
       </p>
     </div>
   );

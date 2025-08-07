@@ -59,34 +59,34 @@ export function GeneratedTemplate({ template, onClear }: GeneratedTemplateProps)
   }
 
   return (
-    <Card className="mt-8 border-orange-200 shadow-lg w-full max-w-4xl mx-auto">
-      <CardContent className="p-4">
-        <div className="flex justify-between items-center mb-3">
-          <h3 className="text-lg font-semibold text-gray-700">Generated Workflow</h3>
+    <Card className="mb-12 shadow-xl border-2 border-gray-100 w-full max-w-4xl mx-auto">
+      <CardContent className="p-6">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-xl font-bold text-gray-800">Generated Workflow</h3>
           <div className="flex items-center gap-2">
-            <Button size="sm" onClick={handleCopy} className="bg-orange-500 hover:bg-orange-600 text-white">
+            <Button size="sm" onClick={handleCopy} variant="outline" className="text-primary border-primary/50 hover:bg-primary/10 hover:text-primary">
               {copied ? <Check className="w-4 h-4 mr-1.5" /> : <Copy className="w-4 h-4 mr-1.5" />}
               {copied ? "Copied" : "Copy"}
             </Button>
-            <Button size="sm" onClick={handleDownload} className="bg-orange-500 hover:bg-orange-600 text-white">
+            <Button size="sm" onClick={handleDownload} className="bg-primary text-primary-foreground hover:bg-primary/90">
               <Download className="w-4 h-4 mr-1.5" />
               Download
             </Button>
           </div>
         </div>
-        <div className="relative rounded-lg bg-gray-900 text-white p-4 overflow-auto">
+        <div className="relative rounded-lg bg-gray-900 text-white p-4 font-mono text-sm overflow-auto">
           <pre className="overflow-x-auto"><code>{displayedLines}</code></pre>
           {templateLines.length > linesToShow && (
             <div
               className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-900 to-transparent cursor-pointer flex justify-center items-end pb-3"
               onMouseEnter={() => setLinesToShow(linesToShow + INCREMENT_LINES)}
             >
-              <ChevronsDown className="w-6 h-6 text-orange-400 animate-bounce" />
+              <ChevronsDown className="w-6 h-6 text-primary animate-bounce" />
             </div>
           )}
         </div>
-        <div className="mt-4 text-center">
-          <Button onClick={onClear} className="bg-orange-500 hover:bg-orange-600 text-white text-lg font-semibold py-3 px-6">
+        <div className="mt-6 text-center">
+          <Button onClick={onClear} className="bg-gradient-to-r from-primary to-red-500 hover:from-primary/90 hover:to-red-500/90 text-white text-lg font-bold py-3 px-8 shadow-lg transition-transform transform hover:scale-105">
             <Zap className="w-5 h-5 mr-2" />
             Generate Another Workflow
           </Button>

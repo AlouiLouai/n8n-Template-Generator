@@ -2,7 +2,7 @@
 "use client"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { GitBranch } from "lucide-react"
+import { GitBranch, ArrowRight } from "lucide-react"
 
 export function ExamplePrompts({ setPrompt }: { setPrompt: (prompt: string) => void }) {
   const examplePrompts = [
@@ -13,30 +13,20 @@ export function ExamplePrompts({ setPrompt }: { setPrompt: (prompt: string) => v
   ]
 
   return (
-    <Card className="mb-8 border-orange-100">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-gray-900">
-          <GitBranch className="w-5 h-5 text-orange-600" />
-          Example Workflows
-        </CardTitle>
-        <CardDescription>Get inspired by these common automation scenarios</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="grid gap-3">
-          {examplePrompts.map((example, index) => (
-            <button
-              key={index}
-              onClick={() => setPrompt(example)}
-              className="text-left p-4 rounded-lg border border-orange-100 hover:border-orange-300 hover:bg-orange-50 transition-colors group"
-            >
-              <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-orange-400 rounded-full mt-2 group-hover:bg-orange-600" />
-                <p className="text-gray-700 group-hover:text-gray-900">{example}</p>
-              </div>
-            </button>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+    <div className="mb-12">
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Not sure where to start?</h2>
+      <div className="grid md:grid-cols-2 gap-4">
+        {examplePrompts.map((example, index) => (
+          <button
+            key={index}
+            onClick={() => setPrompt(example)}
+            className="text-left p-4 rounded-lg border border-gray-200 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 group flex items-center"
+          >
+            <p className="text-gray-700 group-hover:text-gray-900 flex-grow">{example}</p>
+            <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-primary transition-transform duration-300 transform -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0" />
+          </button>
+        ))}
+      </div>
+    </div>
   )
 }
