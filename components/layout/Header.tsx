@@ -1,5 +1,6 @@
 
 import { Workflow } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "./ThemeToggle";
 
 export function Header() {
@@ -11,7 +12,7 @@ export function Header() {
             <Workflow className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">n8n Template Generator</h1>
+            <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">n8n Template Generator <Badge variant="secondary" className="align-middle text-sm">Beta</Badge></h1>
             <p className="text-sm text-gray-500 dark:text-gray-400">AI-Powered Workflow Automation</p>
           </div>
         </div>

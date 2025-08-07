@@ -15,8 +15,8 @@ export function GeneratorForm({ onTemplateGenerated, prompt, setPrompt }: { onTe
   const { toast } = useToast()
   const formRef = useRef<HTMLFormElement>(null)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault()
     if (!prompt.trim()) return
 
     setIsGenerating(true)
@@ -39,7 +39,18 @@ export function GeneratorForm({ onTemplateGenerated, prompt, setPrompt }: { onTe
         title: "Error",
         description: result.error,
         variant: "destructive",
-      })
+        action: (
+          <Button
+            variant="ghost"
+            onClick={() => {
+              setPrompt(prompt); // Retain current prompt
+              handleSubmit(e); // Re-submit the form
+            }}
+          >
+            Regenerate
+          </Button>
+        ),
+      });
     }
   }
 
